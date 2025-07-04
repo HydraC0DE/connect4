@@ -11,3 +11,10 @@ def index():
 @main.route("/test")
 def test():
     return render_template("test.html")
+
+
+game = Blueprint("game", __name__)
+
+@game.route("/game")
+def game_page():
+    return render_template("game.html")
