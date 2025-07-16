@@ -76,9 +76,47 @@ class Connect4:
         x = -1
         y = -1
         while 0 <= current_row_pos + y < 6  and 0 <= current_col_pos + x < 7 and sameColorCount < 4:
+            if self.board[current_row_pos+y][current_col_pos+x] == colorValue:
+                sameColorCount+=1
+                y-=1
+                x-=1
+            else:
+                break
+        
+        x = 1
+        y = 1
+        while 0 <= current_row_pos + y < 6  and 0 <= current_col_pos + x < 7 and sameColorCount < 4:
+            if self.board[current_row_pos+y][current_col_pos+x] == colorValue:
+                sameColorCount+=1
+                y+=1
+                x+=1
+            else:
+                break
+
+        return sameColorCount >= 4
 
     def check_diagonal2(self, current_row_pos, current_col_pos, colorValue):
-        pass
+        sameColorCount = 1
+        x,y = -1,1
+        while 0 <= current_row_pos + y < 6  and 0 <= current_col_pos + x < 7 and sameColorCount < 4:
+            if self.board[current_row_pos+y][current_col_pos+x] == colorValue:
+                sameColorCount+=1
+                y+=1
+                x-=1
+            else:
+                break
+        
+        x,y = 1,-1
+        while 0 <= current_row_pos + y < 6  and 0 <= current_col_pos + x < 7 and sameColorCount < 4:
+            if self.board[current_row_pos+y][current_col_pos+x] == colorValue:
+                sameColorCount+=1
+                y-=1
+                x+=1
+            else:
+                break
+
+        return sameColorCount >= 4
+
 
     def check_draw(self):
         return self.move_count == self.rows * self.cols
