@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <p>game html</p>
+
+    <h1>Current Player: <span id="current-player">Loading...</span></h1>
+
+    <table border="1" id="board-table">
+
+    </table>
+
+    <script>
+        async function loadBoard() {
+            const response = await fetch('/game/state');
+            const data = await response.json();
+
+            document.getElementById('current-player').textContent = data.current_player;
+
+            const boardTable = document.getElementById('board-table');
+            boardTable.innerHTML = '';
+
+            for (const row of data.board) {
+                const tr = document.createElement('tr');
+                for (const cell of row) {
+                    const td = document.createElement('td');
+                    if (cell === 0) {
+                        td.innerHTML = '&nbsp;';
+                    } else if (cell === 1) {
+                        td.innerHTML = '<span style="color: yellow;">&#9679;</span>';
+                    } else if (cell === 2) {
+                        td.innerHTML = '<span style="color: red;">&#9679;</span>';
+                    }
+                    tr.appendChild(td);
+                }
+                boardTable.appendChild(tr);
+            }
+        }
+
+        async function test() {
+            console.log("asd")
+        }
+
+
+        loadBoard();
+        test();
+    </script>
 </body>
+
 </html>
